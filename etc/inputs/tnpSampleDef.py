@@ -15,6 +15,9 @@ eosUL2017 = '/eos/cms/store/group/phys_egamma/asroy/Tag-and-Probe_Tree/UL2017_MI
 eosUL2018 = '/eos/cms/store/group/phys_egamma/asroy/Tag-and-Probe_Tree/UL2018_MINIAOD_Nm1/'
 eosUL2016 = '/eos/cms/store/group/phys_egamma/akapoor/Tag-and-Probe_Tree/UL2016_ntuples/'
 
+### highPtID sample repositories
+afsReReco2017 = '/afs/cern.ch/work/h/hsinyeh/public/diphoton-analysis/CMSSW_10_2_26/src/egm_tnp_analysis/etc/inputs/'
+
 
 
 ReReco2017 = {
@@ -153,3 +156,36 @@ UL2016_postVFP = {
     'data_Run2016G' : tnpSample('data_Run2016G' , eosUL2016 + 'UL2016_SingleEle_Run2016G.root' , lumi = 7.634508755),
     'data_Run2016H' : tnpSample('data_Run2016H' , eosUL2016 + 'UL2016_SingleEle_Run2016H.root' , lumi = 8.802242522),
     }
+
+
+ExoReReco2017 = {
+
+    # 'DY_madgraph'    : tnpSample('DY_madgraph',
+    #                         eosReReco2017 + 'DYJetsToLL.root',
+    #                         isMC = True, nEvts =  -1 ),
+    # 'DY_1j_madgraph' : tnpSample('DY_1j_madgraph',
+    #                         eosReReco2017 + 'DY1JetsToLLM50madgraphMLM.root',
+    #                         isMC = True, nEvts =  -1 ),
+    # 'DY_amcatnlo'    : tnpSample('DY_amcatnlo',
+    #                         eosMoriond18 + 'DYJetsToLLM50amcatnloFXFX.root',
+    #                         isMC = True, nEvts =  -1 ),
+    # 'DY_amcatnloext' : tnpSample('DY_amcatnloext',
+    #                         eosReReco2017 + 'DYJetsToLLM50amcatnloFXFXext.root',
+    #                         isMC = True, nEvts =  -1 ),
+
+
+    'MC' : tnpSample('MC',
+                     afsReReco2017 + 'TnPTree_mc.root',
+                     isMC = True, nEvts = -1),
+    'DATA' : tnpSample('DATA',
+                     afsReReco2017 + 'TnPTree_data.root',
+                     isMC = False, nEvts = -1),
+
+
+    # 'data_Run2017B'  : tnpSample('data_Run2017B' , eosReReco2017 + 'RunB.root' , lumi = 4.793 ),
+    # 'data_Run2017C'  : tnpSample('data_Run2017C' , eosReReco2017 + 'RunC.root' , lumi = 9.753),
+    # 'data_Run2017D'  : tnpSample('data_Run2017D' , eosReReco2017 + 'RunD.root' , lumi = 4.320 ),
+    # 'data_Run2017E'  : tnpSample('data_Run2017E' , eosReReco2017 + 'RunE.root' , lumi = 8.802),
+    # 'data_Run2017F'  : tnpSample('data_Run2017F' , eosReReco2017 + 'RunF.root' , lumi = 13.567),
+
+}
