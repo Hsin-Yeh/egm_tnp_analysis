@@ -118,7 +118,7 @@ def EffiGraph1D(effDataList, effMCList, sfList ,nameout, xAxis = 'pT', yAxis = '
         p1.SetLogx()
         p2.SetLogx()    
         xMin = 10
-        xMax = 500
+        xMax = 2000
     elif 'vtx' in xAxis or 'Vtx' in xAxis or 'PV' in xAxis:
         xMin =  3
         xMax = 42
@@ -304,7 +304,7 @@ def doEGM_SFs(filein, lumi, axis = ['pT','eta'] ):
 
         if len(numbers) > 0 and isFloat(numbers[0]):
             etaKey = ( float(numbers[0]), float(numbers[1]) )
-            ptKey  = ( float(numbers[2]), min(500,float(numbers[3])) )
+            ptKey  = ( float(numbers[2]), min(3000,float(numbers[3])) )
         
             myeff = efficiency(ptKey,etaKey,
                                float(numbers[4]),float(numbers[5]),float(numbers[6] ),float(numbers[7] ),
@@ -325,8 +325,8 @@ def doEGM_SFs(filein, lumi, axis = ['pT','eta'] ):
     customEtaBining.append( (0.000,0.800))
     customEtaBining.append( (0.800,1.444))
 #    customEtaBining.append( (1.444,1.566))
-    customEtaBining.append( (1.566,2.000))
-    customEtaBining.append( (2.000,2.500))
+    customEtaBining.append( (1.566,2.500))
+    # customEtaBining.append( (2.000,2.500))
 
 
     pdfout = nameOutBase + '_egammaPlots.pdf'

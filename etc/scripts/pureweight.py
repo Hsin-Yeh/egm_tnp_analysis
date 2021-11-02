@@ -8,8 +8,11 @@ puType = 0
 #    sample = tnpSamples.Moriond18_94X[sName]
 #for sName in tnpSamples.UL2018.keys():    
 #    sample = tnpSamples.UL2018[sName]
-for sName in tnpSamples.UL2016_preVFP.keys():    
-    sample = tnpSamples.UL2016_preVFP[sName]
+# for sName in tnpSamples.UL2016_preVFP.keys():
+#     sample = tnpSamples.UL2016_preVFP[sName]
+for sName in tnpSamples.ExoReReco2016.keys():
+    sample = tnpSamples.ExoReReco2016[sName]
+
     if sample is None : continue
 #    if not 'rec' in sName : continue
 #    if not 'Winter17' in sName : continue
@@ -24,7 +27,8 @@ for sName in tnpSamples.UL2016_preVFP.keys():
 #        dirout =  '/eos/cms/store/group/phys_egamma/swmukher/ntuple_2017_v2/PU/'
 #        dirout =  '/eos/cms/store/group/phys_egamma/asroy/Tag-and-Probe_Tree/UL2018_MINIAOD_Nm1/PU_Trees/'
 #        dirout =  '/eos/cms/store/group/phys_egamma/asroy/Tag-and-Probe_Tree/UL2018_AOD/PU_Trees/'
-        dirout =  '/eos/cms/store/group/phys_egamma/asroy/Tag-and-Probe_Tree/UL2016/PU_Trees/preVFP/'
+        # dirout =  '/eos/cms/store/group/phys_egamma/asroy/Tag-and-Probe_Tree/UL2016/PU_Trees/preVFP/'
+        dirout = '/eos/home-h/hsinyeh/store/Crab1026_test/PU/'
         mkdir(dirout)
         
         if   puType == 0 : sample.set_puTree( dirout + '%s_%s.pu.puTree.root'   % (sample.name,tree) )

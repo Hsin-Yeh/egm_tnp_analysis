@@ -16,9 +16,7 @@ eosUL2018 = '/eos/cms/store/group/phys_egamma/asroy/Tag-and-Probe_Tree/UL2018_MI
 eosUL2016 = '/eos/cms/store/group/phys_egamma/akapoor/Tag-and-Probe_Tree/UL2016_ntuples/'
 
 ### highPtID sample repositories
-afsReReco2017 = '/afs/cern.ch/work/h/hsinyeh/public/diphoton-analysis/CMSSW_10_2_26/src/egm_tnp_analysis/etc/inputs/'
-
-
+ExoReReco = '/afs/cern.ch/user/h/hsinyeh/eos/store/Crab1027_test/'
 
 ReReco2017 = {
 
@@ -157,35 +155,68 @@ UL2016_postVFP = {
     'data_Run2016H' : tnpSample('data_Run2016H' , eosUL2016 + 'UL2016_SingleEle_Run2016H.root' , lumi = 8.802242522),
     }
 
+ExoReReco2016 = {
+
+    'DY_madgraph' : tnpSample('DY_madgraph',
+                                        ExoReReco + 'crab_2016_DY_LO/merged.root',
+                                        isMC = True, nEvts =  -1 ),
+    'DY_amcatnlo' : tnpSample('DY_amcatnlo',
+                                        ExoReReco + 'crab_2016_DY_NLO/merged.root',
+                                        isMC = True, nEvts =  -1 ),
+
+    'data_Run2016Bv2' : tnpSample('data_Run2016Bv2' , ExoReReco + 'crab_2016_Run2016B/merged.root' , lumi = 5.785 ),
+    'data_Run2016C' : tnpSample('data_Run2016C' , ExoReReco + 'crab_2016_Run2016C/merged.root' , lumi = 2.573 ),
+    'data_Run2016D' : tnpSample('data_Run2016D' , ExoReReco + 'crab_2016_Run2016D/merged.root' , lumi = 4.248 ),
+    'data_Run2016E' : tnpSample('data_Run2016E' , ExoReReco + 'crab_2016_Run2016E/merged.root' , lumi = 3.947 ),
+    'data_Run2016F' : tnpSample('data_Run2016F' , ExoReReco + 'crab_2016_Run2016F/merged.root' , lumi = 3.102 ),
+    'data_Run2016G' : tnpSample('data_Run2016G' , ExoReReco + 'crab_2016_Run2016G/merged.root' , lumi = 7.540 ),
+    'data_Run2016H' : tnpSample('data_Run2016H' , ExoReReco + 'crab_2016_Run2016H/merged.root' , lumi = 7.813 ),
+}
 
 ExoReReco2017 = {
 
-    # 'DY_madgraph'    : tnpSample('DY_madgraph',
-    #                         eosReReco2017 + 'DYJetsToLL.root',
-    #                         isMC = True, nEvts =  -1 ),
-    # 'DY_1j_madgraph' : tnpSample('DY_1j_madgraph',
-    #                         eosReReco2017 + 'DY1JetsToLLM50madgraphMLM.root',
-    #                         isMC = True, nEvts =  -1 ),
-    # 'DY_amcatnlo'    : tnpSample('DY_amcatnlo',
-    #                         eosMoriond18 + 'DYJetsToLLM50amcatnloFXFX.root',
-    #                         isMC = True, nEvts =  -1 ),
-    # 'DY_amcatnloext' : tnpSample('DY_amcatnloext',
-    #                         eosReReco2017 + 'DYJetsToLLM50amcatnloFXFXext.root',
-    #                         isMC = True, nEvts =  -1 ),
+    'DY_madgraph'    : tnpSample('DY_madgraph',
+                            ExoReReco + 'crab_2017_DY_LO/merged.root',
+                            isMC = True, nEvts =  -1 ),
+    'DY_1j_madgraph' : tnpSample('DY_1j_madgraph',
+                            ExoReReco + 'crab_2017_DY1_LO/merged.root',
+                            isMC = True, nEvts =  -1 ),
+    'DY_amcatnlo'    : tnpSample('DY_amcatnlo',
+                            ExoReReco + 'crab_2017_DY_NLO/merged.root',
+                            isMC = True, nEvts =  -1 ),
+    'DY_amcatnloext' : tnpSample('DY_amcatnloext',
+                            ExoReReco + 'crab_2017_DY_NLO_ext/merged.root',
+                            isMC = True, nEvts =  -1 ),
 
+    'data_Run2017B' : tnpSample('data_Run2017B' , ExoReReco + 'crab_2017_Run2017B/merged.root' , lumi = 4.793  ),
+    'data_Run2017C' : tnpSample('data_Run2017C' , ExoReReco + 'crab_2017_Run2017C/merged.root' , lumi = 9.753  ),
+    'data_Run2017D' : tnpSample('data_Run2017D' , ExoReReco + 'crab_2017_Run2017D/merged.root' , lumi = 4.320  ),
+    'data_Run2017E' : tnpSample('data_Run2017E' , ExoReReco + 'crab_2017_Run2017E/merged.root' , lumi = 8.802  ),
+    'data_Run2017F' : tnpSample('data_Run2017F' , ExoReReco + 'crab_2017_Run2017F/merged.root' , lumi = 13.567 ),
+    #
+    # 'data' : tnpSample('data', '/afs/cern.ch/work/h/hsinyeh/public/diphoton-analysis/CMSSW_10_2_26/src/EgammaAnalysis/egm_tnp_analysis/etc/inputs/TnPTree_data.root'),
+    # 'mc' : tnpSample('mc', '/afs/cern.ch/work/h/hsinyeh/public/diphoton-analysis/CMSSW_10_2_26/src/EgammaAnalysis/egm_tnp_analysis/etc/inputs/TnPTree_mc.root'),
 
-    'MC' : tnpSample('MC',
-                     afsReReco2017 + 'TnPTree_mc.root',
-                     isMC = True, nEvts = -1),
-    'DATA' : tnpSample('DATA',
-                     afsReReco2017 + 'TnPTree_data.root',
-                     isMC = False, nEvts = -1),
+}
 
+ExoReReco2018 = {
 
-    # 'data_Run2017B'  : tnpSample('data_Run2017B' , eosReReco2017 + 'RunB.root' , lumi = 4.793 ),
-    # 'data_Run2017C'  : tnpSample('data_Run2017C' , eosReReco2017 + 'RunC.root' , lumi = 9.753),
-    # 'data_Run2017D'  : tnpSample('data_Run2017D' , eosReReco2017 + 'RunD.root' , lumi = 4.320 ),
-    # 'data_Run2017E'  : tnpSample('data_Run2017E' , eosReReco2017 + 'RunE.root' , lumi = 8.802),
-    # 'data_Run2017F'  : tnpSample('data_Run2017F' , eosReReco2017 + 'RunF.root' , lumi = 13.567),
+    'DY_madgraph'    : tnpSample('DY_madgraph',
+                            ExoReReco + 'crab_2018_DY/merged.root',
+                            isMC = True, nEvts =  -1 ),
+    'DY_amcatnlo'    : tnpSample('DY_amcatnlo',
+                            ExoReReco + 'crab_2018_DY_NLO/merged.root',
+                            isMC = True, nEvts =  -1 ),
+    'DY_amcatnloext' : tnpSample('DY_amcatnloext',
+                            ExoReReco + 'crab_2018_DY_NLO_ext/merged.root',
+                            isMC = True, nEvts =  -1 ),
+    'DY_powheg'      : tnpSample('DY_powheg',
+                            ExoReReco + 'crab_2018_DY_pow/merged.root',
+                            isMC = True, nEvts =  -1 ),
 
+    'data_Run2018A' : tnpSample('data_Run2018A' , ExoReReco + 'crab_2018_Run2018A/merged.root' , lumi = 10.723),
+    'data_Run2018B' : tnpSample('data_Run2018B' , ExoReReco + 'crab_2018_Run2018B/merged.root' , lumi = 5.964),
+    'data_Run2018C' : tnpSample('data_Run2018C' , ExoReReco + 'crab_2018_Run2018C/merged.root' , lumi = 6.382),
+    'data_Run2018D' : tnpSample('data_Run2018D' , ExoReReco + 'crab_2018_Run2018D/merged.root' , lumi = 29.181),
+#
 }
