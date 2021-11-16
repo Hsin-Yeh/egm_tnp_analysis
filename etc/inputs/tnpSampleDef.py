@@ -16,7 +16,8 @@ eosUL2018 = '/eos/cms/store/group/phys_egamma/asroy/Tag-and-Probe_Tree/UL2018_MI
 eosUL2016 = '/eos/cms/store/group/phys_egamma/akapoor/Tag-and-Probe_Tree/UL2016_ntuples/'
 
 ### highPtID sample repositories
-ExoReReco = '/afs/cern.ch/user/h/hsinyeh/eos/store/Crab1027_test/'
+ExoReReco = '/afs/cern.ch/user/h/hsinyeh/eos/store/Crab1102_test/'
+ExoReReco_HTbinned = '/afs/cern.ch/user/h/hsinyeh/eos/store/Crab1109/addXsec/'
 
 ReReco2017 = {
 
@@ -164,6 +165,11 @@ ExoReReco2016 = {
                                         ExoReReco + 'crab_2016_DY_NLO/merged.root',
                                         isMC = True, nEvts =  -1 ),
 
+    'DY_madgraph_HTbinned'    : tnpSample('DY_madgraph_HTbinned',
+                                 ExoReReco_HTbinned + 'merged_2016_DY_LO_HTbinned.root',
+                                 isMC = True, nEvts =  -1 ),
+
+
     'data_Run2016Bv2' : tnpSample('data_Run2016Bv2' , ExoReReco + 'crab_2016_Run2016B/merged.root' , lumi = 5.785 ),
     'data_Run2016C' : tnpSample('data_Run2016C' , ExoReReco + 'crab_2016_Run2016C/merged.root' , lumi = 2.573 ),
     'data_Run2016D' : tnpSample('data_Run2016D' , ExoReReco + 'crab_2016_Run2016D/merged.root' , lumi = 4.248 ),
@@ -187,6 +193,11 @@ ExoReReco2017 = {
     'DY_amcatnloext' : tnpSample('DY_amcatnloext',
                             ExoReReco + 'crab_2017_DY_NLO_ext/merged.root',
                             isMC = True, nEvts =  -1 ),
+
+    'DY_madgraph_HTbinned'    : tnpSample('DY_madgraph_HTbinned',
+                                     ExoReReco_HTbinned + 'merged_2017_DY_LO_HTbinned.root',
+                                     isMC = True, nEvts =  -1 ),
+
 
     'data_Run2017B' : tnpSample('data_Run2017B' , ExoReReco + 'crab_2017_Run2017B/merged.root' , lumi = 4.793  ),
     'data_Run2017C' : tnpSample('data_Run2017C' , ExoReReco + 'crab_2017_Run2017C/merged.root' , lumi = 9.753  ),
@@ -213,6 +224,12 @@ ExoReReco2018 = {
     'DY_powheg'      : tnpSample('DY_powheg',
                             ExoReReco + 'crab_2018_DY_pow/merged.root',
                             isMC = True, nEvts =  -1 ),
+
+    'DY_madgraph_HTbinned'    : tnpSample('DY_madgraph_HTbinned',
+                                 ExoReReco_HTbinned + 'merged_2018_DY_LO_HTbinned.root',
+                                 isMC = True, nEvts =  -1 ),
+
+
 
     'data_Run2018A' : tnpSample('data_Run2018A' , ExoReReco + 'crab_2018_Run2018A/merged.root' , lumi = 10.723),
     'data_Run2018B' : tnpSample('data_Run2018B' , ExoReReco + 'crab_2018_Run2018B/merged.root' , lumi = 5.964),
