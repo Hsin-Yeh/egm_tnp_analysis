@@ -16,8 +16,9 @@ eosUL2018 = '/eos/cms/store/group/phys_egamma/asroy/Tag-and-Probe_Tree/UL2018_MI
 eosUL2016 = '/eos/cms/store/group/phys_egamma/akapoor/Tag-and-Probe_Tree/UL2016_ntuples/'
 
 ### highPtID sample repositories
-ExoReReco = '/afs/cern.ch/user/h/hsinyeh/eos/store/Crab1102_test/'
-ExoReReco_HTbinned = '/afs/cern.ch/user/h/hsinyeh/eos/store/Crab1109/addXsec/'
+ExoReReco = '/afs/cern.ch/user/h/hsinyeh/eos/store/Crab1102_ReRecoDY/'
+ExoReReco_HTbinned = '/afs/cern.ch/user/h/hsinyeh/eos/store/Crab1109_ReRecoDYHTbinned/addXsec/'
+ExoUL = '/afs/cern.ch/user/h/hsinyeh/eos/store/Crab1212/addXsec_IDvariable/'
 
 ReReco2017 = {
 
@@ -97,6 +98,9 @@ UL2017 = {
                                        eosUL2017 + 'DYJetsToLL_amcatnloFXFX.root',
                                        isMC = True, nEvts =  -1 ),
 
+    'DY_madgraph_HTbinned'    : tnpSample('DY_madgraph_HTbinned',
+                                 ExoReReco_HTbinned + 'merged_2018_DY_LO_HTbinned.root',
+                                 isMC = True, nEvts =  -1 ),
 
     'data_Run2017B' : tnpSample('data_Run2017B' , eosUL2017 + 'SingleEle_RunB.root' , lumi = 4.793961427),
     'data_Run2017C' : tnpSample('data_Run2017C' , eosUL2017 + 'SingleEle_RunC.root' , lumi = 9.631214821 ),
@@ -237,3 +241,119 @@ ExoReReco2018 = {
     'data_Run2018D' : tnpSample('data_Run2018D' , ExoReReco + 'crab_2018_Run2018D/merged.root' , lumi = 29.181),
 #
 }
+
+ExoUL2016_postVFP = {
+    ### MiniAOD TnP for IDs scale factors
+    'DY_madgraph'              : tnpSample('DY_madgraph',
+                                       eosUL2016 + 'DYJetsToLL_M-50_TuneCP5_13TeV-madgraphMLM-pythia8_postVFP_UL2016.root',
+                                       isMC = True, nEvts =  -1 ),
+    'DY_amcatnloext'                 : tnpSample('DY_amcatnloext',
+                                       eosUL2016 + 'DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8_postVFP_UL2016.root',
+                                       isMC = True, nEvts =  -1 ),
+
+
+    'data_Run2016F_postVFP' : tnpSample('data_Run2016F_postVFP' , eosUL2016 + 'UL2016_SingleEle_Run2016F_postVFP.root' , lumi = 0.414987426),
+    'data_Run2016G' : tnpSample('data_Run2016G' , eosUL2016 + 'UL2016_SingleEle_Run2016G.root' , lumi = 7.634508755),
+    'data_Run2016H' : tnpSample('data_Run2016H' , eosUL2016 + 'UL2016_SingleEle_Run2016H.root' , lumi = 8.802242522),
+    }
+
+
+ExoUL2017 = {
+    ### MiniAOD TnP for IDs scale factors
+    'DY_madgraph'              : tnpSample('DY_madgraph',
+                                       ExoUL + 'crab_UL2017_DY_LO.root ',
+                                       isMC = True, nEvts =  -1 ),
+#    'DY_amcatnlo'                 : tnpSample('DY_amcatnlo',
+#                                       ExoUL + 'DYJetsToLLM50amcatnloFXFX.root',
+#                                       isMC = True, nEvts =  -1 ),
+    'DY_amcatnloext'                 : tnpSample('DY_amcatnloext',
+                                       ExoUL + 'crab_UL2017_DY_NLO.root',
+                                       isMC = True, nEvts =  -1 ),
+
+    'DY_madgraph_HT-70to100'    : tnpSample('DY_madgraph_HT-70to100',
+                                 ExoUL + 'crab_UL2017_DY_LO_HT-70to100.root',
+                                 isMC = True, nEvts =  -1 ),
+
+    'DY_madgraph_HT-100to200'    : tnpSample('DY_madgraph_HT-100to200',
+                                 ExoUL + 'crab_UL2017_DY_LO_HT-100to200.root',
+                                 isMC = True, nEvts =  -1 ),
+
+    'DY_madgraph_HT-200to400'    : tnpSample('DY_madgraph_HT-200to400',
+                                 ExoUL + 'crab_UL2017_DY_LO_HT-200to400.root',
+                                 isMC = True, nEvts =  -1 ),
+
+    'DY_madgraph_HT-400to600'    : tnpSample('DY_madgraph_HT-400to600',
+                                 ExoUL + 'crab_UL2017_DY_LO_HT-400to600.root',
+                                 isMC = True, nEvts =  -1 ),
+
+    'DY_madgraph_HT-600to800'    : tnpSample('DY_madgraph_HT-600to800',
+                                 ExoUL + 'crab_UL2017_DY_LO_HT-600to800.root',
+                                 isMC = True, nEvts =  -1 ),
+
+    'DY_madgraph_HT-800to1200'    : tnpSample('DY_madgraph_HT-800to1200',
+                                 ExoUL + 'crab_UL2017_DY_LO_HT-800to1200.root',
+                                 isMC = True, nEvts =  -1 ),
+
+    'DY_madgraph_HT-1200to2500'    : tnpSample('DY_madgraph_HT-1200to2500',
+                                 ExoUL + 'crab_UL2017_DY_LO_HT-1200to2500.root',
+                                 isMC = True, nEvts =  -1 ),
+
+    'DY_madgraph_HT-2500toInf'    : tnpSample('DY_madgraph_HT-2500toInf',
+                                 ExoUL + 'crab_UL2017_DY_LO_HT-2500toInf.root',
+                                 isMC = True, nEvts =  -1 ),
+
+    'data_Run2017B' : tnpSample('data_Run2017B' , ExoUL + 'crab_UL2017_Run2017B.root' , lumi = 4.793961427),
+    'data_Run2017C' : tnpSample('data_Run2017C' , ExoUL + 'crab_UL2017_Run2017C.root' , lumi = 9.631214821 ),
+    'data_Run2017D' : tnpSample('data_Run2017D' , ExoUL + 'crab_UL2017_Run2017D.root' , lumi = 4.247682053 ),
+    'data_Run2017E' : tnpSample('data_Run2017E' , ExoUL + 'crab_UL2017_Run2017E.root' , lumi = 9.313642402 ),
+    'data_Run2017F' : tnpSample('data_Run2017F' , ExoUL + 'crab_UL2017_Run2017F.root' , lumi = 13.510934811),
+
+    }
+
+ExoUL2018 = {
+    ### MiniAOD TnP for IDs scale factors
+    'DY_madgraph'              : tnpSample('DY_madgraph',
+                                       ExoUL + 'crab_UL2018_DY_NLO.root',
+                                       isMC = True, nEvts =  -1 ),
+    'DY_amcatnloext'                 : tnpSample('DY_amcatnloext',
+                                       ExoUL + 'crab_UL2018_DY_NLO.root',
+                                       isMC = True, nEvts =  -1 ),
+
+    'DY_madgraph_HT-70to100'    : tnpSample('DY_madgraph_HT-70to100',
+                                 ExoUL + 'crab_UL2018_DY_LO_HT-70to100.root',
+                                 isMC = True, nEvts =  -1 ),
+
+    'DY_madgraph_HT-100to200'    : tnpSample('DY_madgraph_HT-100to200',
+                                 ExoUL + 'crab_UL2018_DY_LO_HT-100to200.root',
+                                 isMC = True, nEvts =  -1 ),
+
+    'DY_madgraph_HT-200to400'    : tnpSample('DY_madgraph_HT-200to400',
+                                 ExoUL + 'crab_UL2018_DY_LO_HT-200to400.root',
+                                 isMC = True, nEvts =  -1 ),
+
+    'DY_madgraph_HT-400to600'    : tnpSample('DY_madgraph_HT-400to600',
+                                 ExoUL + 'crab_UL2018_DY_LO_HT-400to600.root',
+                                 isMC = True, nEvts =  -1 ),
+
+    'DY_madgraph_HT-600to800'    : tnpSample('DY_madgraph_HT-600to800',
+                                 ExoUL + 'crab_UL2018_DY_LO_HT-600to800.root',
+                                 isMC = True, nEvts =  -1 ),
+
+    'DY_madgraph_HT-800to1200'    : tnpSample('DY_madgraph_HT-800to1200',
+                                 ExoUL + 'crab_UL2018_DY_LO_HT-800to1200.root',
+                                 isMC = True, nEvts =  -1 ),
+
+    'DY_madgraph_HT-1200to2500'    : tnpSample('DY_madgraph_HT-1200to2500',
+                                 ExoUL + 'crab_UL2018_DY_LO_HT-1200to2500.root',
+                                 isMC = True, nEvts =  -1 ),
+
+    'DY_madgraph_HT-2500toInf'    : tnpSample('DY_madgraph_HT-2500toInf',
+                                 ExoUL + 'crab_UL2018_DY_LO_HT-2500toInf.root',
+                                 isMC = True, nEvts =  -1 ),
+
+
+    'data_Run2018A' : tnpSample('data_Run2018A' , ExoUL + 'crab_UL2018_Run2018A.root' , lumi = 14.02672485),
+    'data_Run2018B' : tnpSample('data_Run2018B' , ExoUL + 'crab_UL2018_Run2018B.root' , lumi = 7.060617355),
+    'data_Run2018C' : tnpSample('data_Run2018C' , ExoUL + 'crab_UL2018_Run2018C.root' , lumi = 6.894770971),
+    'data_Run2018D' : tnpSample('data_Run2018D' , ExoUL + 'crab_UL2018_Run2018D.root' , lumi = 31.74220577),
+    }
