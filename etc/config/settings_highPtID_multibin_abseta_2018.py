@@ -63,7 +63,7 @@ if not samplesDef['mcAlt' ] is None: samplesDef['mcAlt' ].set_mcTruth()
 if not samplesDef['tagSel'] is None: samplesDef['tagSel'].set_mcTruth()
 if not samplesDef['tagSel'] is None:
     samplesDef['tagSel'].rename('mcAltSel_DY_madgraph')
-    samplesDef['tagSel'].set_cut('tag_Ele_pt > 35 && tag_Ele_passmedium_V1')
+    samplesDef['tagSel'].set_cut('tag_Ele_pt > 37 && tag_Ele_passmedium_V1')
 
 samplesDef['data' ].set_tnpTree(tnpTreeDir)
 if not samplesDef['mcNom' ] is None: samplesDef['mcNom' ].set_tnpTree(tnpTreeDir)
@@ -98,7 +98,7 @@ biningDef = [
 ########## Cuts definition for all samples
 #############################################################
 ### cut
-cutBase   = 'tag_Ele_pt > 30 && abs(tag_sc_eta) < 2.1 && tag_Ele_passtight_V1'
+cutBase   = 'tag_Ele_pt > 35 && abs(tag_sc_eta) < 2.1 && tag_Ele_passtight_V1'
 
 # can add addtionnal cuts for some bins (first check bin number using tnpEGM --checkBins)
 additionalCuts = {
