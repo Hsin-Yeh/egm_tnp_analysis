@@ -7,17 +7,15 @@ void fitGradiantLimit(){
     years.push_back(2016);
     years.push_back(2017);
     years.push_back(2018);
+    const int totalEtaBins = 3;
+    const int totalPtBins  = 5;
 
     gStyle->SetOptFit(0000);
 
     for ( auto year : years ) {
 
-        // string effFileName = "results/ReReco" + to_string(year) + "/tnpPhoID/multibin_abseta/passingCutBasedLooseHighPtIDV2//egammaEffi.txt";
-        string effFileName = "./efficiency/egammaEffi_" + to_string(year) + ".txt";
-        ifstream effFile(effFileName);
 
-        const int totalEtaBins = 3;
-        const int totalPtBins  = 5;
+        // get pt mean value of each bin
         float meanPt[totalEtaBins][totalPtBins];
         float errorPt[totalEtaBins][totalPtBins];
 
@@ -29,26 +27,37 @@ void fitGradiantLimit(){
             }
         }
 
-        float eff[2][totalEtaBins][totalPtBins];
-        float e_eff[2][totalEtaBins][totalPtBins];
+        TFile* fmultibin = new TFile(Form("../../results/ReReco%d/tnpPhoID/multibin_abseta/passingCutBasedLooseHighPtIDV2/egammaEffi.txt_EGM2D.root",year), "read");
+        TH2D* h_SF = (TH2D*)fmultibin->Get("EGamma_SF2D");
+        TH2D* h_effData = (TH2D*)fmultibin->Get("EGamma_EffData2D");
+        TH2D* h_effMC = (TH2D*)fmultibin->Get("EGamma_EffMC2D");
+        TH2D* h_statMC = (TH2D*)fmultibin->Get("statMC");
+        TH2D* h_statData = (TH2D*)fmultibin->Get("statData");
+
         float sf[totalEtaBins][totalPtBins];
-        float e_sf[totalEtaBins][totalPtBins];
+        float error_sf[totalEtaBins][totalPtBins];  // statistical + systematics uncertainty
+        float effData[totalEtaBins][totalPtBins];
+        float effMC[totalEtaBins][totalPtBins];
+        float statData[totalEtaBins][totalPtBins];
+        float statMC[totalEtaBins][totalPtBins];
+        float statError_sf[totalEtaBins][totalPtBins]; // MC + Data statistical uncertainty
         float ExtraSF[totalEtaBins];
         float ExtraSys[totalEtaBins];
 
-        string tmp;
-
-        getline(effFile,tmp);
-        getline(effFile,tmp);
-    
         for ( int ptbin = 0; ptbin < totalPtBins; ptbin++){
             for ( int etabin = 0; etabin < totalEtaBins; etabin++){
-                effFile >> tmp >> tmp >> tmp >> tmp >> eff[0][etabin][ptbin] >> e_eff[0][etabin][ptbin] >> eff[1][etabin][ptbin] >> e_eff[1][etabin][ptbin] >> tmp >> tmp >> tmp >> tmp;
 
-                sf[etabin][ptbin] = eff[0][etabin][ptbin] / eff[1][etabin][ptbin]; // Data / MC
-                e_sf[etabin][ptbin] = sqrt( pow(e_eff[0][etabin][ptbin] / eff[0][etabin][ptbin], 2) + pow(e_eff[1][etabin][ptbin] / eff[1][etabin][ptbin], 2) ) * sf[etabin][ptbin];
+                sf[etabin][ptbin]           = h_SF->GetBinContent(totalEtaBins-etabin, ptbin+1);
+                error_sf[etabin][ptbin]     = h_SF->GetBinError(totalEtaBins-etabin, ptbin+1);
 
-                std::cout << sf[etabin][ptbin] << " " << e_sf[etabin][ptbin] << std::endl;
+                effData[etabin][ptbin]      = h_effData->GetBinContent(totalEtaBins-etabin, ptbin+1);
+                effMC[etabin][ptbin]        = h_effMC->GetBinContent(totalEtaBins-etabin, ptbin+1);
+                statData[etabin][ptbin]     = h_statData->GetBinContent(totalEtaBins-etabin, ptbin+1);
+                statMC[etabin][ptbin]       = h_statMC->GetBinContent(totalEtaBins-etabin, ptbin+1);
+
+                statError_sf[etabin][ptbin] = sqrt( pow(statData[etabin][ptbin] / effData[etabin][ptbin], 2) + pow(statMC[etabin][ptbin] / effMC[etabin][ptbin], 2) ) * sf[etabin][ptbin];
+
+                std::cout << sf[etabin][ptbin] << " " << error_sf[etabin][ptbin] << std::endl;
             }
         }
 
@@ -64,7 +73,7 @@ void fitGradiantLimit(){
         for ( int etabin = 0; etabin < totalEtaBins; etabin++ ) {
             fit->SetParameters(1,0);
 
-            TGraphErrors* g = new TGraphErrors(5, meanPt[etabin],sf[etabin], errorPt[etabin], e_sf[etabin]);
+            TGraphErrors* g = new TGraphErrors(5, meanPt[etabin],sf[etabin], errorPt[etabin], statError_sf[etabin]);
             g->Draw("APE");
             g->GetXaxis()->SetTitle("P_{t}^{#gamma} [GeV]");
             g->GetYaxis()->SetTitle("Scale Factor");
@@ -95,7 +104,7 @@ void fitGradiantLimit(){
             double x[] = {200, 1000};
             double y[] = {ExtraSF[etabin], ExtraSF[etabin]};
             double ex[] = {0., 0.};
-            double ey[] = {e_sf[etabin][1], sqrt(1000*ExtraSys[etabin]*1000*ExtraSys[etabin] + e_sf[etabin][1]*e_sf[etabin][1])};
+            double ey[] = {statError_sf[etabin][1], sqrt(1000*ExtraSys[etabin]*1000*ExtraSys[etabin] + statError_sf[etabin][1]*statError_sf[etabin][1])};
             auto ge = new TGraphErrors(2, x, y, ex, ey);
             ge->SetFillColorAlpha(38, 0.35);
             ge->SetFillStyle(1001);
@@ -108,7 +117,7 @@ void fitGradiantLimit(){
             ge->GetXaxis()->SetTitle("P_{t}^{#gamma} [GeV]");
             ge->GetYaxis()->SetTitle("Scale Factor");
 
-            TGraphErrors* g = new TGraphErrors(5, meanPt[etabin],sf[etabin], errorPt[etabin], e_sf[etabin]);
+            TGraphErrors* g = new TGraphErrors(5, meanPt[etabin],sf[etabin], errorPt[etabin], statError_sf[etabin]);
             g->Draw("PEsame");
 
             TLegend *leg = new TLegend(0.2,0.7,0.6,0.85);
@@ -118,8 +127,6 @@ void fitGradiantLimit(){
 
             c1->SaveAs(Form("plots/%d_%d_Check.png", year, etabin));
             c1->SaveAs(Form("plots/%d_%d_Check.pdf", year, etabin));
-
-            std::cout << ExtraSF[etabin] << " " << sqrt(1000*ExtraSys[etabin]*1000*ExtraSys[etabin] + e_sf[etabin][1]*e_sf[etabin][1]) << std::endl;
         }
 
         for ( int etabin = 0; etabin < totalEtaBins; etabin++ ) {
@@ -142,7 +149,7 @@ void fitGradiantLimit(){
             double x[] = {200, 1000};
             double y[] = {ExtraSF[etabin], ExtraSF[etabin]};
             double ex[] = {0., 0.};
-            double ey[] = {e_sf[etabin][1], sqrt(1000*ExtraSys[etabin]*1000*ExtraSys[etabin] + e_sf[etabin][1]*e_sf[etabin][1])};
+            double ey[] = {error_sf[etabin][1], sqrt(1000*ExtraSys[etabin]*1000*ExtraSys[etabin] + error_sf[etabin][1]*error_sf[etabin][1])};
             auto ge = new TGraphErrors(2, x, y, ex, ey);
             ge->SetFillColorAlpha(38, 0.35);
             ge->SetFillStyle(1001);
@@ -161,11 +168,11 @@ void fitGradiantLimit(){
 
         // Output SF and extrapolation uncertainty
         ofstream fout;
-        string foutName = "Extrapolated_SF_" + to_string(year) + ".txt";
+        string foutName = "SF_" + to_string(year) + ".txt";
         fout.open(foutName);
-        fout << "abs(eta)_min | abs(eta)_max | SF{125<pt<200} | Syst{125<pt<200} | SF{200<pt} | Syst{200<pt} | Extrapolate_Syst{200<pt}" << std::endl;
-        fout << fixed << "0.0000" << "\t" << "0.8000\t" << std::setprecision(3) << sf[0][0] << "\t" << e_sf[0][0] << "\t" << ExtraSF[0] << "\t" << std::setprecision(4) << e_sf[0][1] << "\t" << scientific << std::setprecision(2) << ExtraSys[0] << std::endl;
-        fout << fixed << "0.8000" << "\t" << "1.4442\t" << std::setprecision(3) << sf[1][0] << "\t" << e_sf[1][0] << "\t" << ExtraSF[1] << "\t" << std::setprecision(4) << e_sf[1][1] << "\t" << scientific << std::setprecision(2) << ExtraSys[1] << std::endl;
-        fout << fixed << "1.5660" << "\t" << "2.5000\t" << std::setprecision(3) << sf[2][0] << "\t" << e_sf[2][0] << "\t" << ExtraSF[2] << "\t" << std::setprecision(4) << e_sf[2][1] << "\t" << scientific << std::setprecision(2) << ExtraSys[2] << std::endl;
+        fout << "abs(eta)_min | abs(eta)_max | SF{125<pt<200} | Syst{125<pt<200} | SF{200<pt} | Syst{200<pt} | Extrapolate_Syst/GeV{200<pt}" << std::endl;
+        fout << fixed << "0.0000" << "\t" << "0.8000\t" << std::setprecision(3) << sf[0][0] << "\t" << error_sf[0][0] << "\t" << ExtraSF[0] << "\t" << std::setprecision(4) << error_sf[0][1] << "\t" << scientific << std::setprecision(2) << ExtraSys[0] << std::endl;
+        fout << fixed << "0.8000" << "\t" << "1.4442\t" << std::setprecision(3) << sf[1][0] << "\t" << error_sf[1][0] << "\t" << ExtraSF[1] << "\t" << std::setprecision(4) << error_sf[1][1] << "\t" << scientific << std::setprecision(2) << ExtraSys[1] << std::endl;
+        fout << fixed << "1.5660" << "\t" << "2.5000\t" << std::setprecision(3) << sf[2][0] << "\t" << error_sf[2][0] << "\t" << ExtraSF[2] << "\t" << std::setprecision(4) << error_sf[2][1] << "\t" << scientific << std::setprecision(2) << ExtraSys[2] << std::endl;
     }
 }
