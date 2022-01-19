@@ -171,8 +171,8 @@ void fitGradiantLimit(){
         string foutName = "SF_" + to_string(year) + ".txt";
         fout.open(foutName);
         fout << "abs(eta)_min | abs(eta)_max | SF{125<pt<200} | Syst{125<pt<200} | SF{200<pt} | Syst{200<pt} | Extrapolate_Syst/GeV{200<pt}" << std::endl;
-        fout << fixed << "0.0000" << "\t" << "0.8000\t" << std::setprecision(3) << sf[0][0] << "\t" << error_sf[0][0] << "\t" << ExtraSF[0] << "\t" << std::setprecision(4) << error_sf[0][1] << "\t" << scientific << std::setprecision(2) << ExtraSys[0] << std::endl;
-        fout << fixed << "0.8000" << "\t" << "1.4442\t" << std::setprecision(3) << sf[1][0] << "\t" << error_sf[1][0] << "\t" << ExtraSF[1] << "\t" << std::setprecision(4) << error_sf[1][1] << "\t" << scientific << std::setprecision(2) << ExtraSys[1] << std::endl;
-        fout << fixed << "1.5660" << "\t" << "2.5000\t" << std::setprecision(3) << sf[2][0] << "\t" << error_sf[2][0] << "\t" << ExtraSF[2] << "\t" << std::setprecision(4) << error_sf[2][1] << "\t" << scientific << std::setprecision(2) << ExtraSys[2] << std::endl;
+        fout << fixed << "0.0000" << "\t" << "0.8000\t" << std::setprecision(4) << sf[0][0] << "\t" << error_sf[0][0] << "\t" << ExtraSF[0] << "\t" << error_sf[0][1] << "\t" << scientific << std::setprecision(2) << ExtraSys[0] << std::endl;
+        fout << fixed << "0.8000" << "\t" << "1.4442\t" << std::setprecision(4) << sf[1][0] << "\t" << error_sf[1][0] << "\t" << ExtraSF[1] << "\t" << error_sf[1][1] << "\t" << scientific << std::setprecision(2) << ExtraSys[1] << std::endl;
+        fout << fixed << "1.5660" << "\t" << "2.5000\t" << std::setprecision(4) << sf[2][0] << "\t" << error_sf[2][0] << "\t" << ExtraSF[2] << "\t" << error_sf[2][1] << "\t" << scientific << std::setprecision(2) << ExtraSys[2] << std::endl;
     }
 }
