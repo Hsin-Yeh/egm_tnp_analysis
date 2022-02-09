@@ -27,7 +27,7 @@ void fitGradiantLimit(){
             }
         }
 
-        TFile* fmultibin = new TFile(Form("../../results/ReReco%d/tnpPhoID/multibin_abseta/passingCutBasedLooseHighPtIDV2/egammaEffi.txt_EGM2D.root",year), "read");
+        TFile* fmultibin = new TFile(Form("tnpOutput/egammaEffi.txt_EGM2D_%d.root",year), "read");
         TH2D* h_SF = (TH2D*)fmultibin->Get("EGamma_SF2D");
         TH2D* h_effData = (TH2D*)fmultibin->Get("EGamma_EffData2D");
         TH2D* h_effMC = (TH2D*)fmultibin->Get("EGamma_EffMC2D");
@@ -55,6 +55,7 @@ void fitGradiantLimit(){
                 statData[etabin][ptbin]     = h_statData->GetBinContent(totalEtaBins-etabin, ptbin+1);
                 statMC[etabin][ptbin]       = h_statMC->GetBinContent(totalEtaBins-etabin, ptbin+1);
 
+                // Using stat uncertainty only for the fit ( systematic uncertainties are correlated between pt bins and will overestimate the error of p1 )
                 statError_sf[etabin][ptbin] = sqrt( pow(statData[etabin][ptbin] / effData[etabin][ptbin], 2) + pow(statMC[etabin][ptbin] / effMC[etabin][ptbin], 2) ) * sf[etabin][ptbin];
 
                 std::cout << sf[etabin][ptbin] << " " << error_sf[etabin][ptbin] << std::endl;
@@ -168,7 +169,7 @@ void fitGradiantLimit(){
 
         // Output SF and extrapolation uncertainty
         ofstream fout;
-        string foutName = "SF_" + to_string(year) + ".txt";
+        string foutName = "SF/SF_" + to_string(year) + ".txt";
         fout.open(foutName);
         fout << "abs(eta)_min | abs(eta)_max | SF{125<pt<200} | Syst{125<pt<200} | SF{200<pt} | Syst{200<pt} | Extrapolate_Syst/GeV{200<pt}" << std::endl;
         fout << fixed << "0.0000" << "\t" << "0.8000\t" << std::setprecision(4) << sf[0][0] << "\t" << error_sf[0][0] << "\t" << ExtraSF[0] << "\t" << error_sf[0][1] << "\t" << scientific << std::setprecision(2) << ExtraSys[0] << std::endl;
