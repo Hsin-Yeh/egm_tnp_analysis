@@ -78,7 +78,8 @@ void fitGradiantLimit(){
             g->Draw("APE");
             g->GetXaxis()->SetTitle("P_{t}^{#gamma} [GeV]");
             g->GetYaxis()->SetTitle("Scale Factor");
-            g->SetTitle(Form("year:%d, etabin:%s",year, title[etabin].c_str()));
+            g->SetTitle("");
+            // g->SetTitle(Form("year:%d, etabin:%s",year, title[etabin].c_str()));
             g->GetYaxis()->SetRangeUser(0.8, 1.15);
             g->Fit("fit","R");
             ExtraSF[etabin] = fit->GetParameter(0);
@@ -96,8 +97,16 @@ void fitGradiantLimit(){
             ptstats->SetOptStat(0);
             ptstats->SetOptFit(111);
             ptstats->Draw();
-            c1->SaveAs(Form("plots/%d_%d_Fit.png", year, etabin));
-            c1->SaveAs(Form("plots/%d_%d_Fit.pdf", year, etabin));
+
+            TPaveText *pteta = new TPaveText(0.6,0.9,0.9,0.95,"NBNDC");
+            pteta->SetTextSize(0.04);
+            pteta->SetTextAlign(31);
+            pteta->SetFillColor(0);
+            pteta->AddText(Form("%s",title[etabin].c_str()));
+            pteta->Draw();
+
+            c1->SaveAs(Form("plots/Extrapolate_%d_%d_Fit.png", year, etabin));
+            c1->SaveAs(Form("plots/Extrapolate_%d_%d_Fit.pdf", year, etabin));
         }
 
 
@@ -105,7 +114,7 @@ void fitGradiantLimit(){
             double x[] = {200, 1000};
             double y[] = {ExtraSF[etabin], ExtraSF[etabin]};
             double ex[] = {0., 0.};
-            double ey[] = {statError_sf[etabin][1], sqrt(1000*ExtraSys[etabin]*1000*ExtraSys[etabin] + statError_sf[etabin][1]*statError_sf[etabin][1])};
+            double ey[] = {error_sf[etabin][1], sqrt(1000*ExtraSys[etabin]*1000*ExtraSys[etabin] + error_sf[etabin][1]*error_sf[etabin][1])};
             auto ge = new TGraphErrors(2, x, y, ex, ey);
             ge->SetFillColorAlpha(38, 0.35);
             ge->SetFillStyle(1001);
@@ -114,7 +123,8 @@ void fitGradiantLimit(){
             ge->Draw("al3");
             ge->GetYaxis()->SetRangeUser(0.8, 1.2);
             ge->GetXaxis()->SetRangeUser(100, 1500);
-            ge->SetTitle(Form("year:%d, etabin:%s",year, title[etabin].c_str()));
+            // ge->SetTitle(Form("year:%d, etabin:%s",year, title[etabin].c_str()));
+            ge->SetTitle("");
             ge->GetXaxis()->SetTitle("P_{t}^{#gamma} [GeV]");
             ge->GetYaxis()->SetTitle("Scale Factor");
 
@@ -123,11 +133,18 @@ void fitGradiantLimit(){
 
             TLegend *leg = new TLegend(0.2,0.7,0.6,0.85);
             leg->AddEntry(g,"measured SF","lep");
-            leg->AddEntry(ge,"extrapolation SF + systematics", "lf");
+            leg->AddEntry(ge,"extrapolation SF + uncertainty", "lf");
             leg->Draw("same");
 
-            c1->SaveAs(Form("plots/%d_%d_Check.png", year, etabin));
-            c1->SaveAs(Form("plots/%d_%d_Check.pdf", year, etabin));
+            TPaveText *pteta = new TPaveText(0.6,0.9,0.9,0.95,"NBNDC");
+            pteta->SetTextSize(0.04);
+            pteta->SetTextAlign(31);
+            pteta->SetFillColor(0);
+            pteta->AddText(Form("%s",title[etabin].c_str()));
+            pteta->Draw();
+
+            c1->SaveAs(Form("plots/Extrapolate_%d_%d_Check.png", year, etabin));
+            c1->SaveAs(Form("plots/Extrapolate_%d_%d_Check.pdf", year, etabin));
         }
 
         for ( int etabin = 0; etabin < totalEtaBins; etabin++ ) {
@@ -143,7 +160,8 @@ void fitGradiantLimit(){
             g_fixed->Draw("al3");
             g_fixed->GetYaxis()->SetRangeUser(0.8, 1.2);
             g_fixed->GetXaxis()->SetRangeUser(100, 1500);
-            g_fixed->SetTitle(Form("year:%d, etabin:%s",year, title[etabin].c_str()));
+            // g_fixed->SetTitle(Form("year:%d, etabin:%s",year, title[etabin].c_str()));
+            g_fixed->SetTitle("");
             g_fixed->GetXaxis()->SetTitle("P_{t}^{#gamma} [GeV]");
             g_fixed->GetYaxis()->SetTitle("Scale Factor");
 
@@ -163,8 +181,15 @@ void fitGradiantLimit(){
             leg->AddEntry(ge,"extrapolation SF + uncertainty","lf");
             leg->Draw("same");
 
-            c1->SaveAs(Form("plots/%d_%d_Compare.png", year, etabin));
-            c1->SaveAs(Form("plots/%d_%d_Compare.pdf", year, etabin));
+            TPaveText *pteta = new TPaveText(0.6,0.9,0.9,0.95,"NBNDC");
+            pteta->SetTextSize(0.04);
+            pteta->SetTextAlign(31);
+            pteta->SetFillColor(0);
+            pteta->AddText(Form("%s",title[etabin].c_str()));
+            pteta->Draw();
+
+            c1->SaveAs(Form("plots/Extrapolate_%d_%d_Compare.png", year, etabin));
+            c1->SaveAs(Form("plots/Extrapolate_%d_%d_Compare.pdf", year, etabin));
         }
 
         // Output SF and extrapolation uncertainty
