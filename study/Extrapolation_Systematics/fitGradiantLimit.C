@@ -72,7 +72,7 @@ void fitGradiantLimit(){
         float etaEdge[5] = {0, 0.8, 1.4442, 1.566, 2.5};
 
         for ( int etabin = 0; etabin < totalEtaBins; etabin++ ) {
-            fit->SetParameters(1,0);
+            fit->SetParameters(1.0177,0);
 
             TGraphErrors* g = new TGraphErrors(5, meanPt[etabin],sf[etabin], errorPt[etabin], statError_sf[etabin]);
             g->Draw("APE");
